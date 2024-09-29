@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 #include "logic.h"
 
 int main() {
@@ -8,6 +9,11 @@ int main() {
   for (int i = 0; i < n; i++) {
     std::cin >> array[i];
   }
+
+  clock_t start = clock();
   int res = GetResult(0, n, array, 0, 0);
-  std::cout << res << "\n";
+  clock_t end = clock();
+
+  std::cout << "Answer: " << res << "\n";
+  std::cout << std::fixed << "Res calculated in " << (double)(end - start) / CLOCKS_PER_SEC << " seconds\n";
 }
