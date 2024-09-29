@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 int n;
-unsigned int array[32];
-unsigned long long all_sum;
+int array[32];
+int all_sum;
 
-unsigned long long CalculateRightResult(int i, unsigned long long first_sum, unsigned int mask)
+int CalculateRightResult(int i, int first_sum, int mask)
 {
   if (mask > ~mask)
   {
@@ -13,14 +13,14 @@ unsigned long long CalculateRightResult(int i, unsigned long long first_sum, uns
   }
   else if (i == 0)
   {
-    unsigned long long double_first_sum = (first_sum << 1);
-    unsigned long long variant1;
+    int double_first_sum = (first_sum << 1);
+    int variant1;
     if (all_sum > double_first_sum)
       variant1 = all_sum - double_first_sum;
     else
       variant1 = double_first_sum - all_sum;
 
-    unsigned long long variant2;
+    int variant2;
     double_first_sum += (array[i] << 1);
     if (all_sum > double_first_sum)
       variant2 = all_sum - double_first_sum;
@@ -34,12 +34,12 @@ unsigned long long CalculateRightResult(int i, unsigned long long first_sum, uns
   }
   else if (i != 0)
   {
-    const unsigned long long variant1 = CalculateRightResult(i - 1, first_sum + array[i], mask | (1 << i));
+    const int variant1 = CalculateRightResult(i - 1, first_sum + array[i], mask | (1 << i));
     if (variant1 == 0)
       return 0;
     else
     {
-      const unsigned long long variant2 = CalculateRightResult(i - 1, first_sum, mask);
+      const int variant2 = CalculateRightResult(i - 1, first_sum, mask);
       if (variant1 <= variant2)
         return variant1;
       else
@@ -48,7 +48,7 @@ unsigned long long CalculateRightResult(int i, unsigned long long first_sum, uns
   }
   else
   {
-    const unsigned long long double_first_sum = (first_sum << 1);
+    const int double_first_sum = (first_sum << 1);
     if (all_sum > double_first_sum)
       return all_sum - double_first_sum;
     else
